@@ -1,0 +1,31 @@
+datasource db {
+    provider = "mysql"
+    url      = "mysql://example_user:password@db:3306/example"
+}
+
+generator client {
+    provider      = "cargo prisma"
+    output        = "../src/prisma.rs"
+}
+
+model User {
+    id          Int  @id @default(autoincrement())
+    Name String
+}
+
+model Post {
+    @@map("posts")
+    id          Int  @id @default(autoincrement())
+    title       String
+    userId Int
+    comments Comment[]
+}
+
+model Comment {
+    @@map("comments")
+    id          Int  @id @default(autoincrement())
+    message String
+    userId Int
+    post Post @relation(fields: [postId], references: [id])
+    postId Int
+}

@@ -1,0 +1,31 @@
+version: "3"
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    tty: true
+    volumes:
+        - ./:/app
+    ports:
+      - "3000:3000"
+  db:
+    container_name: db
+    image: mysql:8.0
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: example
+      MYSQL_USER: example_user
+      MYSQL_PASSWORD: password
+      TZ: 'Asia/Tokyo'
+#    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - db-store:/var/lib/mysql
+      - ./docker/db/initdb:/docker-entrypoint-initdb.d
+    ports:
+      - '${DB_PORT:-3306}:3306'
+
+volumes:
+  db-store:
