@@ -1,0 +1,55 @@
+
+type Comment {
+	id: Int!
+	message: String!
+	postId: Int!
+	user: User
+}
+
+input CreateCommentInput {
+	message: String!
+	userId: Int!
+	postId: Int!
+}
+
+input CreatePostInput {
+	title: String!
+	userId: Int!
+}
+
+input CreateUserInput {
+	name: String!
+}
+
+
+
+
+type Mutation {
+	createComment(createCommentInput: CreateCommentInput!): Comment!
+	createPost(createPostInput: CreatePostInput!): Post!
+	createUser(createUserInput: CreateUserInput!): User!
+}
+
+type Post {
+	id: Int!
+	title: String!
+	comment: [Comment!]!
+	user: User
+}
+
+type Query {
+	comments: [Comment!]!
+	users: [User!]!
+	posts: [Post!]!
+}
+
+
+type User {
+	id: Int!
+	name: String!
+}
+
+schema {
+	query: Query
+	mutation: Mutation
+}
