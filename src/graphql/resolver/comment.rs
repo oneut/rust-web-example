@@ -27,7 +27,7 @@ impl CommentMutation {
         let comment = client
             .comment()
             .create(
-                create_comment_input.content,
+                create_comment_input.message,
                 create_comment_input.user_id,
                 prisma::post::id::equals(create_comment_input.post_id),
                 vec![],
@@ -41,7 +41,7 @@ impl CommentMutation {
 
 #[derive(InputObject)]
 struct CreateCommentInput {
-    content: String,
+    message: String,
     user_id: i32,
     post_id: i32,
 }
