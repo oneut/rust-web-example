@@ -22,9 +22,15 @@ docker-compose exec app cargo prisma db push
 docker-compose exec app cargo seeder
 ```
 
-- GraphQLサーバを起動
+- Webアプリケーションを実行
 ```
-docker-compose exec app cargo watch -s "mold -run cargo run"
+docker-compose exec app cargo run
+```
+
+ファイル監視して再コンパイルしたい場合は下記
+
+```
+docker-compose exec app cargo watch -x run
 ```
 
 - アクセス
@@ -32,7 +38,7 @@ http://localhost:3000
 
 # GraphQL Schema
 - ファイルパス
-`./resource/graphql`
+`/resource/graphql`
 - スキーマファイル作成
 ```
 docker-compose exec app cargo graphql-sdl
