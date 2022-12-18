@@ -37,8 +37,9 @@ impl Post {
         self.0.title.to_string()
     }
     async fn comment(&self) -> Vec<Comment> {
-        let comments = self.0.comments().unwrap().clone();
+        let comments = self.0.comments().unwrap();
         comments
+            .clone()
             .into_iter()
             .map(|comment| Comment(comment))
             .collect()
