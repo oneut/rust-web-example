@@ -24,4 +24,3 @@ RUN rustup component add rustfmt
 RUN cargo install cargo-watch
 
 WORKDIR /app
-# CMD cargo watch -s 'mold -run cargo run'
